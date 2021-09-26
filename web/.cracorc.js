@@ -14,5 +14,17 @@ module.exports = {
                 tsConfigPath: "./tsconfig.aliases.json",
             },
         },
+        {
+            plugin: require("craco-esbuild"),
+            options: {
+                enableSvgr: true,
+                esbuildMinimizerOptions: {
+                    target: "es6",
+                    css: true,
+                    minify: true,
+                },
+                skipEsbuildJest: true,
+            },
+        },
     ],
 };
