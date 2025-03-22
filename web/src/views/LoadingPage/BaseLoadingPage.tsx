@@ -1,9 +1,9 @@
 import React from "react";
 
-import { Theme, Typography, useTheme } from "@mui/material";
+import { Box, Theme, Typography, useTheme } from "@mui/material";
 import Grid from "@mui/material/Grid2";
-import makeStyles from "@mui/styles/makeStyles";
-import ReactLoading from "react-loading";
+import ScaleLoader from "react-spinners/ScaleLoader";
+import { makeStyles } from "tss-react/mui";
 
 export interface Props {
     message: string;
@@ -11,19 +11,23 @@ export interface Props {
 
 const BaseLoadingPage = function (props: Props) {
     const theme = useTheme();
-    const styles = useStyles();
+    const { classes } = useStyles();
 
     return (
-        <Grid container className={styles.gridOuter}>
-            <Grid className={styles.gridInner}>
-                <ReactLoading width={64} height={64} color={theme.custom.loadingBar} type="bars" />
-                <Typography>{props.message}...</Typography>
+        <Grid container className={classes.gridOuter}>
+            <Grid className={classes.gridInner}>
+                <Box padding={theme.spacing(2)}>
+                    <ScaleLoader color={theme.custom.loadingBar} speedMultiplier={1.5} />
+                </Box>
+                <Box padding={theme.spacing(2)}>
+                    <Typography>{props.message}...</Typography>
+                </Box>
             </Grid>
         </Grid>
     );
 };
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles()((theme: Theme) => ({
     gridOuter: {
         alignItems: "center",
         justifyContent: "center",

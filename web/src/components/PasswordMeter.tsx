@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 
 import { Alert, AlertTitle, Box, Theme } from "@mui/material";
-import makeStyles from "@mui/styles/makeStyles";
-import classnames from "classnames";
 import { useTranslation } from "react-i18next";
+import { makeStyles } from "tss-react/mui";
 import zxcvbn from "zxcvbn";
 
 import { PasswordPolicyConfiguration, PasswordPolicyMode } from "@models/PasswordPolicy";
@@ -21,6 +20,8 @@ const PasswordMeter = function (props: Props) {
     const [maxScores, setMaxScores] = useState(0);
     const [feedback, setFeedback] = useState("");
     const [feedbackTitle, setFeedbackTitle] = useState("");
+
+    const { classes } = useStyles({ progressColor, passwordScore, maxScores });
 
     useEffect(() => {
         const password = props.value;
@@ -104,7 +105,29 @@ const PasswordMeter = function (props: Props) {
         }
     }, [props, translate]);
 
-    const styles = makeStyles((theme: Theme) => ({
+    return (
+        <Box className={classes.progressContainer}>
+            <Box className={classes.progressBar} />
+            {(feedbackTitle !== "" || feedback !== "") && (
+                <Alert severity="warning">
+                    {feedbackTitle !== "" && (
+                        <AlertTitle className={classes.feedbackTitle}>
+                            <p>{feedbackTitle}</p>
+                        </AlertTitle>
+                    )}
+                    <Box className={classes.feedback}>{feedback}</Box>
+                </Alert>
+            )}
+        </Box>
+    );
+};
+
+PasswordMeter.defaultProps = {
+    minLength: 0,
+};
+
+const useStyles = makeStyles<{ progressColor: string[]; passwordScore: number; maxScores: number }>()(
+    (theme: Theme, { progressColor, passwordScore, maxScores }) => ({
         progressBar: {
             height: "5px",
             marginTop: "2px",
@@ -125,27 +148,7 @@ const PasswordMeter = function (props: Props) {
             textAlign: "left",
             fontSize: "0.7rem",
         },
-    }))();
-
-    return (
-        <Box className={styles.progressContainer}>
-            <Box className={classnames(styles.progressBar)} />
-            {(feedbackTitle !== "" || feedback !== "") && (
-                <Alert severity="warning">
-                    {feedbackTitle !== "" && (
-                        <AlertTitle className={classnames(styles.feedbackTitle)}>
-                            <p>{feedbackTitle}</p>
-                        </AlertTitle>
-                    )}
-                    <p className={classnames(styles.feedback)}>{feedback}</p>
-                </Alert>
-            )}
-        </Box>
-    );
-};
-
-PasswordMeter.defaultProps = {
-    minLength: 0,
-};
+    }),
+);
 
 export default PasswordMeter;
