@@ -254,7 +254,8 @@ access requests unless specifically requested otherwise. The current behavior is
 the `audience` parameter are granted. This behavior can be tuned using the
 [requested_audience_mode](#requested_audience_mode).
 
-This value does not affect the issued ID Tokens as they are always issued with the client identifier being the audience.
+This value does not generally affect the minted ID Tokens as they are always issued with the client identifier being the
+audience unless the [claims policy](#claims_policy) changes this behaviour.
 
 ### scopes
 
@@ -551,7 +552,9 @@ The content encryption algorithm used to encrypt the authorization responses.
 
 See the encryption algorithms section of the
 [integration guide](../../../integration/openid-connect/introduction.md#encryption-algorithms) for more information
-including the algorithm column for supported values.### id_token_signed_response_key_id
+including the algorithm column for supported values.
+
+### id_token_signed_response_key_id
 
 {{< confkey type="string" required="no" >}}
 
@@ -645,7 +648,9 @@ The content encryption algorithm used to encrypt the authorization responses.
 
 See the encryption algorithms section of the
 [integration guide](../../../integration/openid-connect/introduction.md#encryption-algorithms) for more information
-including the algorithm column for supported values.### access_token_signed_response_key_id
+including the algorithm column for supported values.
+
+### access_token_signed_response_key_id
 
 {{< confkey type="string" required="no" >}}
 
@@ -769,7 +774,9 @@ The content encryption algorithm used to encrypt the authorization responses.
 
 See the encryption algorithms section of the
 [integration guide](../../../integration/openid-connect/introduction.md#encryption-algorithms) for more information
-including the algorithm column for supported values.### userinfo_signed_response_key_id
+including the algorithm column for supported values.
+
+### userinfo_signed_response_key_id
 
 {{< confkey type="string" required="no" >}}
 
