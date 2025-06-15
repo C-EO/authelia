@@ -42,17 +42,6 @@ Some of the values presented in this guide can automatically be replaced with do
 
 ## Configuration
 
-The following example uses the [OAuth login Extension] which is assumed to be installed when following
-this section of the guide.
-
-To install the [OAuth login Extension] for [Beszel] via the Web GUI:
-
-1. Login to [Beszel].
-2. Navigate to `Extensions`.
-3. Navigate to `Extensions Catalog`.
-4. Search for `OAuth login`.
-5. Click Install.
-
 ### Authelia
 
 The following YAML configuration is an example __Authelia__ [client configuration] for use with [Beszel] which will
@@ -69,12 +58,19 @@ identity_providers:
         client_secret: '$pbkdf2-sha512$310000$c8p78n7pUMln0jzvd4aK4Q$JNRBzwAo0ek5qKn50cFzzvE9RXV88h1wJn5KGiHrD0YKtZaR/nCb2CJPOsKaPK0hjf.9yHxzQGZziziccp6Yng'  # The digest of 'insecure_secret'.
         public: false
         authorization_policy: 'two_factor'
+        require_pkce: true
+        pkce_challenge_method: 'S256'
         redirect_uris:
           - 'https://beszel.{{< sitevar name="domain" nojs="example.com" >}}/api/oauth2-redirect'
         scopes:
           - 'openid'
           - 'email'
           - 'profile'
+        response_types:
+          - 'code'
+        grant_types:
+          - 'authorization_code'
+        access_token_signed_response_alg: 'none'
         userinfo_signed_response_alg: 'none'
         token_endpoint_auth_method: 'client_secret_basic'
 ```

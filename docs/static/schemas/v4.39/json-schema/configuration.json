@@ -1552,9 +1552,11 @@
             "enum": [
               "openid",
               "offline_access",
-              "groups",
-              "email",
               "profile",
+              "email",
+              "address",
+              "phone",
+              "groups",
               "authelia.bearer.authz"
             ]
           },
@@ -1679,6 +1681,7 @@
         "pkce_challenge_method": {
           "type": "string",
           "enum": [
+            "",
             "plain",
             "S256"
           ],
@@ -3488,7 +3491,7 @@
           "type": "string",
           "title": "CSP Template",
           "description": "The Content Security Policy template.",
-          "default": "default-src 'self'; frame-src 'none'; object-src 'none'; style-src 'self' 'nonce-%s'; frame-ancestors 'none'; base-uri 'self'"
+          "default": "default-src 'self'; frame-src 'none'; object-src 'none'; style-src 'self' 'nonce-%s' 'sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU='; frame-ancestors 'none'; base-uri 'self'"
         }
       },
       "additionalProperties": false,
